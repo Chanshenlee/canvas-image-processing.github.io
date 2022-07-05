@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+    <title>Canvas Image Processing</title>
+    <script type="text/javascript">
+        var cvs,ctx;
+        window.onload=function(){
+            cvs=document.getElementById("cvs"); //抓到一個canvas物件
+            ctx=cvs.getContext("2d");
+            // 載入影像
+            var img=new Image();
+            img.src="rice.jpg";
+            img.onload=function(){ // 註冊 load 事件，圖片載入完成後，才做繪製
+                ctx.drawImage(this,0,0,cvs.width,cvs.height);
+            };
+
+            
+
+        };
+        function invertColor(){
+            var pixels=cts.getImageData(0,0,cvs.width,cvs.height); // ImageData物件
+            var data=pixels.data; // 我們真正要找的是 ImageData物件下的Data屬性
+            // 一個像素占據 4 個資料 (byte)。red , green , blue , alpha(範圍0~255)，顏色按亮度分為0~255共256個等級，0表示亮度為0%，255表示亮度為100%
+            for(var i=0;i<data.length;i+=4){
+                data[i]=255-data[i]; // 紅
+                data[i+1]=255-data[i+1]; // 綠
+                data[i+2]=255-data[i+2]; // 藍
+            }
+            ctx.putImageData(pixels,0,0);
+        }
+
+    </script>
+    </head>
+    <body>
+        <div><button onclick="invertColor();">顏色的反轉</button></div>
+        <canvas id="cvs" width="800" height="600" style="border: 1px solid #000000"></canvas>
+        <!-- 
+            canvas是一個畫布，width跟height指定畫布的寬高
+         -->
+    </body>
+</html>
+
+<!-- /
+    HTML DOM : 把 HTML文件中的各個標籤(文字、圖片)都定義成物件，並用節點Node稱呼。
+
+    .innerHTML : 改掉指定標籤裡的字串
+    getElementById : 用ID取得Element的意思
+    getElementByClassName : 用Class取得Element的意思
+ -->
