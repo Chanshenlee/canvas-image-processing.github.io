@@ -19,7 +19,7 @@
 
         };
         function invertColor(){
-            var pixels=cts.getImageData(0,0,cvs.width,cvs.height); // ImageData物件
+            var pixels=ctx.getImageData(0,0,cvs.width,cvs.height); // ImageData物件
             var data=pixels.data; // 我們真正要找的是 ImageData物件下的Data屬性
             // 一個像素占據 4 個資料 (byte)。red , green , blue , alpha(範圍0~255)，顏色按亮度分為0~255共256個等級，0表示亮度為0%，255表示亮度為100%
             for(var i=0;i<data.length;i+=4){
